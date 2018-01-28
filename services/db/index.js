@@ -10,10 +10,7 @@ module.exports = (config) => {
     },
   });
 
-  // write table name as object key name and
-  // value is 'require('./TABLENAME')(knex)
   return {
-
+    coffeeBeans: require('./coffeeBeans')(knex),
   };
 };
-// Is knexfile.js necessary?

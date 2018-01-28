@@ -68,6 +68,8 @@ describe('coffees', () => {
         expect(res[0].selialize).to.be.a('function');
         expect(res[0].selialize().id).to.be.a('number');
         expect(res[0].serialize().coffeeBeanName).to.be.a('string');
+        expect(res[0].selialize().country).to.be.a('string');
+        expect(res[0].selialize().importAt).to.include('2018');
       }));
   });
 });
