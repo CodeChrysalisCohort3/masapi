@@ -6,7 +6,7 @@
   "author": "maaaashin324 <mstk.shin@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "node tests/initialize.js && mocha tests/tests.js && yarn lint",
+    "test": "node tests/initialize.js && mocha tests/test.js && yarn lint",
     "lint": "eslint ./*/*.js",
     "start": "node index.js",
     "migrate": "knex migrate:latest --knexfile services/db/knexfile.js",
