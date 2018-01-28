@@ -2,12 +2,10 @@ const express = require('express');
 
 const router = express.Router();
 
-const tableName1Router = require('./tableName1');
-const tableName2Router = require('./tableName2');
+const coffeeBeansRouter = require('./coffeeBeans');
 
 module.exports = (services) => {
-  router.use('/tableName1', tableName1Router(services));
-  router.use('/tableName2', tableName2Router(services));
+  router.use('/coffeeBeans', coffeeBeansRouter(services));
 
   return router;
 };
