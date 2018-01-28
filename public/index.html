@@ -1,16 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>masapi</title>
-</head>
-<body>
-  <div>
-    <p>
-      Hello world!
-    </p>
-  </div>
-</body>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>masapi</title>
+    <!-- style sheet for project -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- require bootstrap css and javascript -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+
+  <body ng-app="myApp">
+    <div ng-controller="Controller">
+
+      <div id="allCoffee">
+        <h1>Coffee Beans<span class="refresh"><i class="fa fa-refresh" ng-click="getCoffeeBeans()" aria-hidden="true"></i></span></h1>
+        <ul ng-repeat="coffeeBean in coffeeBeans">
+          <li ng-click="getCoffeeBean($index)">{{coffeeBean.coffeeBeanName}} : {{coffeeBean.country}} : {{coffeeBean.importAt}}</li>
+          <!-- <li>{{coffeeBean.coffeeBeanName}}</li> -->
+        </ul>
+      </div>
+
+      <div id="importCoffee">
+        <input type="text" id="coffeeBeanNameArea", placeholder="Type the name of a coffee bean">
+        <input type="text", id="countryName", placeholder="Type the country of the coffee bean">
+        <button type="button", ng-click="importCoffeeBean()">import</button>
+        <h1 id="importResult"></h1>
+      </div>
+
+    </div>
+    <!-- Modules -->
+    <script src="js/app.js"></script>
+    <!-- Controllers -->
+    <script src="js/controllers/Controller.js"></script>
+  </body>
+
 </html>
