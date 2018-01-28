@@ -29,7 +29,11 @@ describe('coffees', () => {
       
       context('when good params are given', () => {
         before(() => {
-          params.coffeeBeanName = 'Blue Montain';
+          // params.coffeeBeanName = 'Blue Montain';
+          params = {
+            coffeeBeanName: 'Blue Mountain',
+            country: 'Jamaica',
+          };
         });
 
         afterEach(()=> knex('coffeeBeans').del());
