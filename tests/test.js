@@ -23,43 +23,49 @@ describe('coffees', () => {
         params = { coffeeBeanName: ' ' };
       });
 
-      it('politely refuses', () => db.users.create(params)
+      it('politely refuses', () => db.coffeeBeans.create(params)
         .then(forcePromiseReject)
-        .catch(err => expect(err.message).to.equal('Coffee Beans must be provided, and at least two characters')));
+        .catch(err => expect(err.message).to.equal('A name of coffee bean must be provided, and be at least two characters')));
+    });
       
-      context('when good params are given', () => {
-        before(() => {
-          // params.coffeeBeanName = 'Blue Montain';
-          params = {
-            coffeeBeanName: 'Blue Mountain',
-            country: 'Jamaica',
-          };
-        });
-
-        afterEach(()=> knex('coffee_beans').del());
-
-        it('create a coffee beans', () => db.coffeeBeans.create(params)
-          .then((coffeeBean) => {
-            expect(coffeeBean).to.include({ coffeeBeanName: params.coffeeBeanName });
-            expect(coffeeBean.id).to.be.a('number');
-        }));
-
-        context('when a duplicate coffeeBean is provided', () => {
-          beforeEach(() => db.coffeeBeans.create(params));
-
-          it('generates a sanitized error message', () => db.coffeeBeans.create(params)
-            .then(forcePromiseReject)
-            .catch(err => expect(err.message).to.equal('That coffee bean name already exists')));
-        });
+    context('when good params are given', () => {
+      before(() => {
+        // params.coffeeBeanName = 'Blue Montain';
+        params = {
+          coffeeBeanName: 'blue mountain',
+          country: 'Jamaica',
+        };
       });
+
+      afterEach(()=> knex('coffee_beans').del());
+      
+      it('create a coffee beans', () => db.coffeeBeans.create(params)
+      .then((coffeeBean) => {
+        expect(coffeeBean).to.include({ coffeeBeanName: params.coffeeBeanName.toLowerCase() });
+        expect(coffeeBean.id).to.be.a('number');
+      }));
+    });
+    
+    context('when a duplicate coffeeBean is provided', () => {
+      beforeEach(() => db.coffeeBeans.create(params));
+      afterEach(()=> knex('coffee_beans').del());
+      
+      it('generates a sanitized error message', () => db.coffeeBeans.create(params)
+        .then(forcePromiseReject)
+        .catch(err => expect(err.message).to.equal('That coffee bean has already existed')));
     });
   });
 
   describe('#list', () => {
-    const coffeeBeansNames = ['Blue Mountain', 'LA CAMPA'];
-    const coffeeBeans = coffeeBeansNames.map(coffeeBeanName => ({ coffeeBeanName }));
+    const coffeeBeansNames = ['blue mountain', 'la campa'];
+    const countries = ['jamaica', 'hondurus'];
+    const coffeeBeans = coffeeBeansNames.map((coffeeBeanName, index) => ({
+      coffeeBeanName,
+      country: countries[index],
+    }));
+
     before(() => Promise.all(coffeeBeans.map(db.coffeeBeans.create)));
-    after(() => knex('coffeeBeans').del());
+    after(() => knex('coffee_beans').del());
 
     it('list all coffee beans', () => db.coffeeBeans.list()
       .then((res) => {
@@ -69,11 +75,11 @@ describe('coffees', () => {
     
     it('returns selializable objects', () => db.coffeeBeans.list()
       .then((res) => {
-        expect(res[0].selialize).to.be.a('function');
-        expect(res[0].selialize().id).to.be.a('number');
+        expect(res[0].serialize).to.be.a('function');
+        expect(res[0].serialize().id).to.be.a('number');
         expect(res[0].serialize().coffeeBeanName).to.be.a('string');
-        expect(res[0].selialize().country).to.be.a('string');
-        expect(res[0].selialize().importAt).to.include('2018');
+        expect(res[0].serialize().country).to.be.a('string');
+        expect(res[0].serialize().importAt).to.include('2018');
       }));
   });
 });

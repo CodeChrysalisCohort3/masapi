@@ -8,7 +8,6 @@ const validateCoffeeBeansName = (cbName) => typeof cbName === 'string' &&
     return (params) => {
       const coffeeBeanName = params.coffeeBeanName;
       const country = params.country;
-      const importAt = params.importAt;
 
       return Promise.try(() => {
         if (!validateCoffeeBeansName(coffeeBeanName)) throw new Error('A name of coffee bean must be provided, and be at least two characters');
@@ -17,7 +16,6 @@ const validateCoffeeBeansName = (cbName) => typeof cbName === 'string' &&
       .then(() => knex('coffee_beans').insert({
         coffee_bean_name: coffeeBeanName.toLowerCase(),
         country: country.toLowerCase(),
-        import_at: importAt,
       }))
       .then(() => {
         return knex('coffee_beans')
