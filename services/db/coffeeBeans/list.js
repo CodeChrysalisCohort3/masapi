@@ -1,5 +1,5 @@
 module.exports = (knex, CoffeeBean) => () => {
-  const coffeeBeansPromise = knex('coffeeBeans')
+  const coffeeBeansPromise = knex('coffee_beans')
     .select()
     .then((coffeeBeans) => coffeeBeans.map(coffeeBean => new CoffeeBean(coffeeBean)));
   

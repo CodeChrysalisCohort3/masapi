@@ -11,7 +11,7 @@ const forcePromiseReject = () => {
 
 describe('coffees', () => {
   describe('setup', () => {
-    it('has run the initial migrations', () => knex('coffeeBeans').select()
+    it('has run the initial migrations', () => knex('coffee_beans').select()
       .catch(err => console.log(err)));
   });
 
@@ -36,7 +36,7 @@ describe('coffees', () => {
           };
         });
 
-        afterEach(()=> knex('coffeeBeans').del());
+        afterEach(()=> knex('coffee_beans').del());
 
         it('create a coffee beans', () => db.coffeeBeans.create(params)
           .then((coffeeBean) => {

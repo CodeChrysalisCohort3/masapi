@@ -1,10 +1,10 @@
 exports.up = (knex, Promise) => {
-  return knex.schema.createTable('coffeeBeans', (t) => {
+  return knex.schema.createTable('coffee_beans', (t) => {
     // Primary key
     t.increments()
       .index();
     
-    t.string('coffeeBeanName', 20)
+    t.string('coffee_bean_name', 20)
       .unique()
       .notNullable()
       .index();
@@ -21,5 +21,5 @@ exports.up = (knex, Promise) => {
 };
 
 exports.down = (knex, Promise) => {
-  return knex.schema.dropTable('coffeeBeans');
+  return knex.schema.dropTable('coffee_beans');
 };

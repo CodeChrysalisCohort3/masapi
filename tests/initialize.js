@@ -8,7 +8,7 @@ const ignoreError = (err) => {
 
 const clearTable = tableName => knex(tableName).del().catch(ignoreError);
 
-const tables = ['coffeeBeans', 'countries'];
+const tables = ['coffeeBeans'];
 
 Promise.all(tables.map(clearTable))
   .then(process.exit);
